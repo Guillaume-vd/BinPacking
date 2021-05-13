@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="or-tools">
+    <CLASSES>
+      <root url="file://E:/Library/or-tools" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://E:/Library/or-tools" />
+    </SOURCES>
+    <jarDirectory url="file://E:/Library/or-tools" recursive="false" />
+    <jarDirectory url="file://E:/Library/or-tools" recursive="false" type="SOURCES" />
+  </library>
+</component>
