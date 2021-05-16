@@ -1,5 +1,6 @@
 import Algo.*;
 
+import Function.LoadData;
 import Type.Info;
 
 import java.io.IOException;
@@ -72,5 +73,11 @@ public class Main {
         RecuitSimule recuitSimule = new RecuitSimule(info);
         fin = System.currentTimeMillis() - debut;
         System.out.println("Le cacul algo de Recuit Simulé à pris " + fin + "ms avec une solution de " + info.getBins().size() + " boite et une fitness = " + recuitSimule.getScore() + "\n");
+
+        //Algo Tabu Search
+        debut = System.currentTimeMillis();
+        TabuSearch tabuSearch = new TabuSearch(info);
+        fin = System.currentTimeMillis() - debut;
+        System.out.println("Le cacul algo de recherche tabu à pris " + fin + "ms avec une solution de " + info.getBins().size() + " boite et une fitness = " + tabuSearch.getScore() + "\n");
     }
 }

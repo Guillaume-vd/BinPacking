@@ -9,6 +9,7 @@ public class Info {
     private List<Integer> data;
     private int nbBin;
     private List<Bin> bins;
+    private int tabuMax;
 
     public Info(){
         this.size = 0;
@@ -16,6 +17,7 @@ public class Info {
         this.data = new ArrayList<>();
         this.nbBin = 0;
         this.bins = new ArrayList<>();
+        this.tabuMax = 100;
     }
 
     public void addData(Integer data){
@@ -65,5 +67,13 @@ public class Info {
 
     public void setBins(List<Bin> bins) {
         this.bins = bins;
+    }
+
+    public int getTabuMax() {
+        return tabuMax;
+    }
+
+    public void setTabuMax(int tabuMax) {
+        this.tabuMax = tabuMax;
     }
 }

@@ -1,3 +1,5 @@
+package Function;
+
 import Type.Info;
 
 import java.io.BufferedReader;
