@@ -24,8 +24,9 @@ public class RecuitSimule {
         int lastScore = 0;
         int newScore = 0;
         List<Bin> lastBin;
+        int nbScoreMax = 0;
 
-        for(int k = 0; k < 1000; k++){
+        while (nbScoreMax < 50){
             lastBin = info.getBins();
             lastScore = o.getObjectif(info.getBins());
 
@@ -37,16 +38,22 @@ public class RecuitSimule {
                 v.swap(info);
             }
 
-            //On calcul maintenant la
+            //On calcul maintenant la fitness
             newScore = o.getObjectif(info.getBins());
-            if(score <= newScore){
-                score = newScore;
+            if(lastScore == newScore){
+                nbScoreMax++;
             } else {
-                double p = random.nextDouble();
-                if(p > Math.exp(-(newScore-lastScore)/temp)){
-                    info.setBins(lastBin);
+                nbScoreMax = 0;
+                if(score < newScore){
+                    score = newScore;
+                } else {
+                    double p = random.nextDouble();
+                    if(p > Math.exp(-(newScore-lastScore)/temp)){
+                        info.setBins(lastBin);
+                    }
                 }
             }
+
             temp = temp * 0.95;
         }
     }
