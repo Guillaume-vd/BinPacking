@@ -1,54 +1,99 @@
 package Algo;
 
-import Function.Objectif;
+import Function.Fitness;
 import Function.Voisinage;
 import Type.Bin;
 import Type.Info;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TabuSearch {
     private int score;
 
     public TabuSearch(Info info){
-        info.setBins(new ArrayList<>());
+        info.setBins(new ArrayList<>()); //Réinitialisation de la liste de Bin
+
+        //Appel des différents
         UnBinParItem unBinParItem = new UnBinParItem(info);
-        Objectif o = new Objectif();
+        Fitness o = new Fitness();
         Voisinage v = new Voisinage();
 
-        this.score = o.getObjectif(info.getBins());
-        List<Bin> tabu = new ArrayList<>();
-        tabu.add(info.getBins().get(0));
-        List<Bin> neidhborhood;
-        Bin bestCandidate = info.getBins().get(0);
-        Bin best = info.getBins().get(0);
+        this.score = o.getFitness(info.getBins());
+        int bestScore = this.score;
+        int scoreVoisin = 0;
+        int newScore = 0;
+        List<List<Integer>> tabu = new ArrayList<>();
 
-         /*while (false){
-           neidhborhood = getNeighbors(bestCandidate);
-            bestCandidate = neidhborhood.get(0);
-            for (Bin b:neidhborhood){
-                //refaire avec liste de bin cas b ou cas best actuel
-                if(!tabu.contains(b) && o.getObjectif(b) > o.getObjectif(bestCandidate)){
-                    bestCandidate = b;
+        for (int i = 0; i < 10; i++){
+            scoreVoisin = 0;
+            //System.out.println(i + " " + this.score + " " + info.getBins().size());
+
+            for (int j = 0; j < info.getBins().size() - 1; j++) {
+                for (int k = 0; k < info.getBins().size() - 1; k++) {
+                    for (int l = 0; l < info.getBins().get(j).getSize(); l++) {
+
+                        boolean acceptable = acceptable(info, tabu, j, k);
+                        if (!acceptable) {
+                            continue;
+                        }
+
+                        if (v.deplaceTabu(info, j, l, k)){
+                            newScore = o.getFitness(info.getBins());
+                            if (scoreVoisin <= newScore) {
+                                scoreVoisin = newScore;
+                                List<Integer> temp = new ArrayList<>();
+                                temp.add(k);
+                                temp.add(info.getBins().get(k).getSize());
+                                temp.add(j);
+                                tabu.add(temp);
+                            }
+                        }
+                        for (int m = 0; m < info.getBins().get(k).getData().size(); m++) {
+                            acceptable = acceptable(info, tabu, j, k);
+                            if (!acceptable) {
+                                continue;
+                            }
+
+                            if (v.swapTabu(info, j, l, k, m)) {
+                                newScore = o.getFitness(info.getBins());
+                                if (scoreVoisin <= newScore) {
+                                    scoreVoisin = newScore;
+                                    List<Integer> temp = new ArrayList<>();
+                                    temp.add(k);
+                                    temp.add(info.getBins().get(k).getSize());
+                                    temp.add(j);
+                                    temp.add(m);
+                                    tabu.add(temp);
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
-            if(o.getObjectif(bestCandidate) > o.getObjectif(best)){
-                best = bestCandidate;
-            }
-
-            tabu.add(bestCandidate);
-
-            if(tabu.size() > info.getTabuMax()){
+            if (scoreVoisin < newScore) {
                 tabu.remove(0);
+            } else if (scoreVoisin > bestScore) {
+                bestScore = scoreVoisin;
             }
-        }*/
+        }
+        this.score = o.getFitness(info.getBins());
     }
 
-    public List<Bin> getNeighbors(Bin bin){
-        List<Bin> neighbors = new ArrayList<>();
-        return neighbors;
+    public boolean acceptable(Info info, List<List<Integer>> tabu, int j, int k) {
+        List<Integer> aled = new ArrayList<>();
+        aled.add(k);
+        aled.add(info.getBins().get(k).getSize());
+        aled.add(j);
+        aled.add(info.getBins().get(j).getSize());
+        for (int i = 0; i < tabu.size(); i++) {
+            if (tabu.get(i) == aled) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int getScore() {

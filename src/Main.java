@@ -15,13 +15,13 @@ public class Main {
         //Pour chosir son fichier parmis les fichiers contenu dans graph
         Scanner sc = new Scanner(System.in);
         System.out.println("Veuillez saisir le nom du fichier avec l'extention:");
-        String NomFichier = sc.nextLine();
+        String nomFichier = sc.nextLine();
         sc.close();
 
         //Récupération des données
         Info info;
         debut = System.currentTimeMillis();
-        LoadData data = new LoadData("binpack1d_00.txt");
+        LoadData data = new LoadData(nomFichier);
         info = data.getInfo();
         fin = System.currentTimeMillis() - debut;
         System.out.println("Les données on été récupéré en " + fin +"ms\n");
@@ -45,16 +45,16 @@ public class Main {
         System.out.println("Le cacul algo FirstFitDecreasing à pris " + fin + "ms avec " + info.getBins().size() + " boite et une fitness = " + firstFitDecreasing.getObjectif() + "\n");
 
         //Algo ProgramationLineaire
-        debut = System.currentTimeMillis();
+        /*debut = System.currentTimeMillis();
         ProgramationLinéaire programationLinéaire = new ProgramationLinéaire(info);
         fin = System.currentTimeMillis() - debut;
-        System.out.println("Le cacul algo de programation à pris " + fin + "ms avec une solution de " + programationLinéaire.getSolution() + "\n");
+        System.out.println("Le cacul algo de programation à pris " + fin + "ms avec une solution de " + programationLinéaire.getSolution() + "\n");*/
 
         //Algo 1 bin = 1 item
         debut = System.currentTimeMillis();
         UnBinParItem unBinParItem = new UnBinParItem(info);
         fin = System.currentTimeMillis() - debut;
-        System.out.println("Le cacul algo de 1 bien par item à pris " + fin + "ms avec une solution de " + info.getBins().size() + " boite et une fitness = " + unBinParItem.getObjectif() + "\n");
+        System.out.println("Le cacul algo de 1 bin par item à pris " + fin + "ms avec une solution de " + info.getBins().size() + " boite et une fitness = " + unBinParItem.getObjectif() + "\n");
 
         //Algo Random
         debut = System.currentTimeMillis();

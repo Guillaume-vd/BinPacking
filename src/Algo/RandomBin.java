@@ -1,6 +1,6 @@
 package Algo;
 
-import Function.Objectif;
+import Function.Fitness;
 import Type.Bin;
 import Type.Info;
 
@@ -13,8 +13,10 @@ public class RandomBin {
     public RandomBin(Info info){
         info.setBins(new ArrayList<>());
 
+        //Trie alléatoire de la liste
         Collections.shuffle(info.getData());
 
+        //Faire tout les items des données.
         for(int i = 0; i < info.getData().size(); i++){
             int itemValue = info.getData().get(i);
             boolean ajouter = false;
@@ -35,8 +37,8 @@ public class RandomBin {
                 info.addBin(bin);
             }
         }
-        Objectif o = new Objectif();
-        this.objectif = o.getObjectif(info.getBins());
+        Fitness o = new Fitness();
+        this.objectif = o.getFitness(info.getBins());
     }
 
     public int getObjectif() {

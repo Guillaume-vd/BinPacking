@@ -1,7 +1,7 @@
 package Algo;
 
 import Function.CompareDecroissant;
-import Function.Objectif;
+import Function.Fitness;
 import Type.Bin;
 import Type.Info;
 
@@ -35,8 +35,8 @@ public class FirstFitDecreasing {
                 info.addBin(bin);
             }
         }
-        Objectif o = new Objectif();
-        this.objectif = o.getObjectif(info.getBins());
+        Fitness o = new Fitness();
+        this.objectif = o.getFitness(info.getBins());
     }
 
     public int getObjectif() {

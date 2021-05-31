@@ -1,6 +1,6 @@
 package Algo;
 
-import Function.Objectif;
+import Function.Fitness;
 import Function.Voisinage;
 import Type.Bin;
 import Type.Info;
@@ -14,49 +14,46 @@ public class RecuitSimule {
 
     public RecuitSimule(Info info){
         info.setBins(new ArrayList<>());
-        UnBinParItem unBinParItem = new UnBinParItem(info);
-        Objectif o = new Objectif();
+        new UnBinParItem(info);
+        Fitness o = new Fitness();
         Random random = new Random();
         Voisinage v = new Voisinage();
 
         double temp = 500.0;
-        this.score = o.getObjectif(info.getBins());
-        int lastScore = 0;
+        this.score = o.getFitness(info.getBins());
+        int lastScore = this.score;
         int newScore = 0;
         List<Bin> lastBin;
-        int nbScoreMax = 0;
 
-        while (nbScoreMax < 50){
+        for (int i = 0; i < 6000; i++){ //tant que pas sur optimal
             lastBin = info.getBins();
-            lastScore = o.getObjectif(info.getBins());
+            lastScore = o.getFitness(info.getBins());
 
             //Choisit aléatoirement l'opération à effectué
             int choice = random.nextInt(2);
             if(choice == 0){
-                v.deplace(info);
+                v.deplaceRecuit(info);
             } else {
-                v.swap(info);
+                v.swapRecuit(info);
             }
 
             //On calcul maintenant la fitness
-            newScore = o.getObjectif(info.getBins());
-            if(lastScore == newScore){
-                nbScoreMax++;
+            newScore = o.getFitness(info.getBins());
+            if(score < newScore){ //Si le score est améliorer
+                this.score = newScore;
             } else {
-                nbScoreMax = 0;
-                if(score < newScore){
-                    score = newScore;
-                } else {
-                    double p = random.nextDouble();
-                    if(p > Math.exp(-(newScore-lastScore)/temp)){
-                        info.setBins(lastBin);
-                    }
+                //Sinon on garde une chance de conserver la liste, mais de plus en plus faible
+                double p = random.nextDouble();
+                if(p > Math.exp(-(newScore-lastScore)/temp)){
+                    info.setBins(lastBin);
                 }
             }
-
-            temp = temp * 0.95;
         }
+
+        //Mise à jour de la température
+        temp = temp * 0.95;
     }
+
 
     public int getScore() {
         return score;

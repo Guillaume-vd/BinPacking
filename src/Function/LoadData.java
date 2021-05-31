@@ -17,7 +17,7 @@ public class LoadData {
         reader = new BufferedReader(new FileReader("src/data/" + file));
         String line;
         int nb_line = 1;
-        while ((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) { //Tant que nous ne somme pas à la fin
             //First line
             if (nb_line == 1) {
                 String[] header = line.split(" ");
