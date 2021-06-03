@@ -48,8 +48,8 @@ public class Main {
         /*debut = System.currentTimeMillis();
         ProgramationLinéaire programationLinéaire = new ProgramationLinéaire(info);
         fin = System.currentTimeMillis() - debut;
-        System.out.println("Le cacul algo de programation à pris " + fin + "ms avec une solution de " + programationLinéaire.getSolution() + "\n");*/
-
+        System.out.println("Le cacul algo de programation à pris " + fin + "ms avec une solution de " + programationLinéaire.getSolution() + "\n");
+*/
         //Algo 1 bin = 1 item
         debut = System.currentTimeMillis();
         UnBinParItem unBinParItem = new UnBinParItem(info);
@@ -69,12 +69,20 @@ public class Main {
         System.out.println("Le cacul algo de FirstFistDecreasingRand à pris " + fin + "ms avec une solution de " + info.getBins().size() + " boite et une fitness = " + firstFistDecreasingRand.getObjectif() + "\n");
 
         //Algo Recuit Simulé
+        System.out.println("Veuillez saisir le nombre d'itération (int)");
+        info.setRecuitIeration(sc.nextInt());
+        System.out.println("Veuillez saisir la température initiale (double)");
+        info.setTempRecuit(sc.nextDouble());
         debut = System.currentTimeMillis();
         RecuitSimule recuitSimule = new RecuitSimule(info);
         fin = System.currentTimeMillis() - debut;
         System.out.println("Le cacul algo de Recuit Simulé à pris " + fin + "ms avec une solution de " + info.getBins().size() + " boite et une fitness = " + recuitSimule.getScore() + "\n");
 
         //Algo Tabu Search
+        System.out.println("Veuillez saisir la taille maximum de la liste tabou (int)");
+        info.setTabuMax(sc.nextInt());
+        System.out.println("Veuillez saisir le nombre d'itération (int)");
+        info.setTabouIteration(sc.nextInt());
         debut = System.currentTimeMillis();
         TabuSearch tabuSearch = new TabuSearch(info);
         fin = System.currentTimeMillis() - debut;

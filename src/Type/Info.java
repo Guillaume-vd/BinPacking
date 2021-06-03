@@ -10,6 +10,9 @@ public class Info {
     private int nbBin;
     private List<Bin> bins;
     private int tabuMax;
+    private int tabouIteration;
+    private int recuitIeration;
+    private double tempRecuit;
 
     public Info(){
         this.size = 0;
@@ -18,6 +21,9 @@ public class Info {
         this.nbBin = 0;
         this.bins = new ArrayList<>();
         this.tabuMax = 100;
+        this.tabouIteration = 10;
+        this.recuitIeration = 300;
+        this.tempRecuit = 500;
     }
 
     public void addData(Integer data){
@@ -67,6 +73,7 @@ public class Info {
 
     public void setBins(List<Bin> bins) {
         this.bins = bins;
+        this.nbBin = 0;
     }
 
     public int getTabuMax() {
@@ -75,5 +82,29 @@ public class Info {
 
     public void setTabuMax(int tabuMax) {
         this.tabuMax = tabuMax;
+    }
+
+    public int getRecuitIeration() {
+        return recuitIeration;
+    }
+
+    public void setRecuitIeration(int recuitIeration) {
+        this.recuitIeration = recuitIeration;
+    }
+
+    public double getTempRecuit() {
+        return tempRecuit;
+    }
+
+    public void setTempRecuit(double tempRecuit) {
+        this.tempRecuit = tempRecuit;
+    }
+
+    public int getTabouIteration() {
+        return tabouIteration;
+    }
+
+    public void setTabouIteration(int tabouIteration) {
+        this.tabouIteration = tabouIteration;
     }
 }

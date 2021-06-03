@@ -19,7 +19,7 @@ public class RecuitSimule {
         Random random = new Random();
         Voisinage v = new Voisinage();
 
-        double temp = 500.0;
+        double temp = info.getTempRecuit();
         this.score = o.getFitness(info.getBins());
         int lastScore = this.score;
         int newScore = 0;
@@ -44,14 +44,14 @@ public class RecuitSimule {
             } else {
                 //Sinon on garde une chance de conserver la liste, mais de plus en plus faible
                 double p = random.nextDouble();
-                if(p > Math.exp(-(newScore-lastScore)/temp)){
+                if(p > Math.exp(-(newScore-lastScore)/info.getTempRecuit())){
                     info.setBins(lastBin);
                 }
             }
         }
 
         //Mise à jour de la température
-        temp = temp * 0.95;
+        info.setTempRecuit(info.getTempRecuit() * 0.95);
     }
 
 
