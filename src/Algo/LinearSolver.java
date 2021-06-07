@@ -2,17 +2,17 @@ package Algo;
 
 import Type.Info;
 
-/*import com.google.ortools.Loader;
+import com.google.ortools.Loader;
 import com.google.ortools.linearsolver.MPConstraint;
 import com.google.ortools.linearsolver.MPObjective;
 import com.google.ortools.linearsolver.MPSolver;
 import com.google.ortools.linearsolver.MPVariable;
 
 
-public class ProgramationLinéaire {
+public class LinearSolver {
     private double solution;
 
-    public ProgramationLinéaire(Info info){
+    public LinearSolver(Info info){
         int nbItems = info.getData().size();
         String lstr;
 
@@ -20,7 +20,7 @@ public class ProgramationLinéaire {
         MPSolver lSolver = new MPSolver("BinPacking1d", MPSolver.OptimizationProblemType.SAT_INTEGER_PROGRAMMING);
         //lSolver.setTimeLimit(50000);
 
-        //Création de toute les variables
+        //Création de toutes les variables
         MPVariable[][] x = new MPVariable[nbItems][nbItems];
         for (int i = 0; i < nbItems; i++){
             for (int j = 0; j < nbItems; j++){
@@ -51,7 +51,7 @@ public class ProgramationLinéaire {
             }
         }
 
-        //function
+        //Fonction
         MPObjective lObjective = lSolver.objective();
         for (int j = 0; j < nbItems; j++){
             lObjective.setCoefficient(y[j], 1);
@@ -61,13 +61,13 @@ public class ProgramationLinéaire {
         MPSolver.ResultStatus resultStatus = lSolver.solve();
         if ((resultStatus == MPSolver.ResultStatus.FEASIBLE)){
             if (resultStatus == MPSolver.ResultStatus.OPTIMAL){
-                System.out.println("An optimal solution has been found in " +lSolver.wallTime() + "ms" );
+                System.out.println("Une solution optimale a été trouvée en " +lSolver.wallTime() + " ms" );
             } else {
-                System.out.println("A feasible solution has been found in " + lSolver.wallTime() + "ms");
+                System.out.println("Une solution réalisable a été trouvée en " + lSolver.wallTime() + " ms");
             }
             this.solution = lObjective.value();
         } else {
-            System.out.println("No feasible solution has been found");
+            System.out.println("Aucun solution réalisable a été trouvée");
             this.solution = 0.0;
         }
     }
@@ -75,4 +75,4 @@ public class ProgramationLinéaire {
     public double getSolution() {
         return solution;
     }
-}*/
+}

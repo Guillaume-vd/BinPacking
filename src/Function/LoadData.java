@@ -17,14 +17,14 @@ public class LoadData {
         reader = new BufferedReader(new FileReader("src/data/" + file));
         String line;
         int nb_line = 1;
-        while ((line = reader.readLine()) != null) { //Tant que nous ne somme pas à la fin
-            //First line
+        while ((line = reader.readLine()) != null) { //Tant que nous ne sommes pas à la fin
+            //Première ligne
             if (nb_line == 1) {
                 String[] header = line.split(" ");
                 this.info.setSize(Integer.parseInt(header[0]));
                 this.info.setNbBin(0);
                 this.info.setNbItem(Integer.parseInt(header[1]));
-            } else { //Other line
+            } else { //Autres lignes
                 this.info.addData(Integer.parseInt(line));
             }
             nb_line += 1;

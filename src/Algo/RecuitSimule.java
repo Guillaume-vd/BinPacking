@@ -29,7 +29,7 @@ public class RecuitSimule {
             lastBin = info.getBins();
             lastScore = o.getFitness(info.getBins());
 
-            //Choisit aléatoirement l'opération à effectué
+            //Choisit aléatoirement l'opération à effectuer
             int choice = random.nextInt(2);
             if(choice == 0){
                 v.deplaceRecuit(info);
@@ -37,9 +37,9 @@ public class RecuitSimule {
                 v.swapRecuit(info);
             }
 
-            //On calcul maintenant la fitness
+            //On calcule maintenant la fitness
             newScore = o.getFitness(info.getBins());
-            if(score < newScore){ //Si le score est améliorer
+            if(score < newScore){ //Si le score est amélioré
                 this.score = newScore;
             } else {
                 //Sinon on garde une chance de conserver la liste, mais de plus en plus faible

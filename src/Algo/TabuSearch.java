@@ -11,37 +11,36 @@ public class TabuSearch {
     private int score;
 
     public TabuSearch(Info info){
-        info.setBins(new ArrayList<>()); //Réinitialisation de la liste de Bin
+        info.setBins(new ArrayList<>()); //Réinitialisation de la liste de bin
 
         //Appel des différents
-        UnBinParItem unBinParItem = new UnBinParItem(info);
+        new UnBinParItem(info);
         Fitness o = new Fitness();
         Voisinage v = new Voisinage();
 
         this.score = o.getFitness(info.getBins());
-        int bestScore = this.score;
-        int scoreVoisin = 0;
-        int newScore = 0;
+        int scoreVoisin;
+        int newScore;
         List<List<Integer>> tabu = new ArrayList<>();
 
-        //On fait n fois l'algorithme
+        //On boucle n fois l'algorithme
         for (int i = 0; i < info.getTabouIteration(); i++){
             scoreVoisin = 0;
             //System.out.println(i + " " + this.score + " " + info.getBins().size());
 
-            for (int j = 0; j < info.getBins().size() - 1; j++) { //Pour chaque Bin source
-                for (int k = 0; k < info.getBins().size() - 1; k++) { //Pour chaque Bin destination
+            for (int j = 0; j < info.getBins().size() - 1; j++) { //Pour chaque bin source
+                for (int k = 0; k < info.getBins().size() - 1; k++) { //Pour chaque bin destination
                     for (int l = 0; l < info.getBins().get(j).getSize(); l++) { //Pour chaque item source
 
-                        //Vérification si les bins sont présent dans la liste tabou
-                        boolean acceptable = acceptable(info, tabu, j, k);
-                        if (!acceptable) {
+                        //Vérification si les bins sont présents dans la liste tabou
+                        boolean dans = dansTabou(info, tabu, j, k);
+                        if (!dans) {
                             continue;
                         }
 
                         if (v.deplaceTabu(info, j, l, k)){ //Si le déplacement est réalisable
                             newScore = o.getFitness(info.getBins());
-                            if (scoreVoisin <= newScore) { //Si le score est moins bon on mets les éléments dans la liste tabou
+                            if (scoreVoisin <= newScore) { //Si le score est moins bon on met les éléments dans la liste tabou
                                 scoreVoisin = newScore;
                                 List<Integer> temp = new ArrayList<>();
                                 temp.add(k);
@@ -56,9 +55,9 @@ public class TabuSearch {
                         }
 
                         //Utile dans la boucle???
-                        //Vérification si les bins sont présent dans la liste tabou, après le déplacement d'un item
-                        acceptable = acceptable(info, tabu, j, k);
-                        if (!acceptable) {
+                        //Vérification si les bins sont présents dans la liste tabou, après le déplacement d'un item
+                        dans = dansTabou(info, tabu, j, k);
+                        if (!dans) {
                             continue;
                         }
 
@@ -85,34 +84,26 @@ public class TabuSearch {
                     }
                 }
             }
-
-            //Si le score est moins bon on retire un éléments de la liste tabou
-            if (scoreVoisin > newScore) {
-                tabu.remove(0);
-            } else if (scoreVoisin > bestScore) { //Sinon on met à jour le score
-                bestScore = scoreVoisin;
-            }
         }
         this.score = o.getFitness(info.getBins());
     }
 
     /**
-    * Vérifie si la les bins ne sont pas dans la liste tabou
+    * Vérifie si la/les bins ne sont pas dans la liste tabou
      * On ne déplace pas un item d'une taille X avec un autre d'une même taille X
      */
-    public boolean acceptable(Info info, List<List<Integer>> tabu, int j, int k) {
-        List<Integer> acceptable = new ArrayList<>();
-        acceptable.add(k);
-        acceptable.add(info.getBins().get(k).getSize());
-        acceptable.add(j);
-        acceptable.add(info.getBins().get(j).getSize());
+    public boolean dansTabou(Info info, List<List<Integer>> tabu, int j, int k) {
+        List<Integer> tabou = new ArrayList<>();
+        tabou.add(k);
+        tabou.add(info.getBins().get(k).getSize());
+        tabou.add(j);
+        tabou.add(info.getBins().get(j).getSize());
 
-        for (int i = 0; i < tabu.size(); i++) {
-            if (tabu.get(i) == acceptable) {
-                return false;
-            }
+        if(tabu.contains(tabou)){
+            return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
     public int getScore() {

@@ -21,7 +21,7 @@ public class Voisinage {
             int destination = random.nextInt(info.getBins().size());
             int itemNumber = random.nextInt(info.getBins().get(source).getData().size());
 
-            //On met plusieurs condition pour pas en avoir une seul trop longue
+            //On met plusieurs conditions pour pas en avoir une seule trop longue
             if (info.getBins().get(source).getNbBin() <= itemNumber) {//Si l'item dans le bin
                 //System.out.println("1");
             } else if(source == destination){//Si la destination est différentes de la source

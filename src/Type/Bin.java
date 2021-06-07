@@ -32,31 +32,16 @@ public class Bin implements Cloneable{
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public List<Integer> getData() {
         return data;
-    }
-
-    public void setData(List<Integer> data) {
-        this.data = data;
     }
 
     public int getNbBin() {
         return nbBin;
     }
 
-    public void setNbBin(int nbBin) {
-        this.nbBin = nbBin;
-    }
-
     public int getSizeAvailable() {
         return sizeAvailable;
     }
 
-    public void setSizeAvailable(int sizeAvailable) {
-        this.sizeAvailable = sizeAvailable;
-    }
 }

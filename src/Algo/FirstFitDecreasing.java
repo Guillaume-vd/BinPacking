@@ -11,14 +11,14 @@ public class FirstFitDecreasing {
     private int objectif;
 
     public FirstFitDecreasing(Info info){
-        //Order descending
+        //Trie par ordre décroissant
         Collections.sort(info.getData(), new CompareDecroissant());
 
-        //tant que tout les items ne sont pas affecter
+        //tant que tous les items ne sont pas affectés
         for(int i = 0; i < info.getData().size(); i++){
             int itemValue = info.getData().get(i);
             boolean ajouter = false;
-            //on test toute les boites disponibles
+            //on teste toutes les boites disponibles
             for (Bin b:info.getBins()) {
                 //Si le bin rentre dans la boite
                 if (itemValue <= b.getSizeAvailable()){

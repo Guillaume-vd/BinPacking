@@ -55,10 +55,6 @@ public class Info {
         return data;
     }
 
-    public void setData(List<Integer> data) {
-        this.data = data;
-    }
-
     public int getNbBin() {
         return nbBin;
     }
